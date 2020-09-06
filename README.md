@@ -1,0 +1,1 @@
+# ETL_Part2.py file will insert activities and thingstodo collection in mongoDB
