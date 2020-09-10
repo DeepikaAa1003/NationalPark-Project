@@ -1,8 +1,8 @@
 from pymongo import MongoClient
-from config import database, connect_string
+from config import connect_string
 
 # Initialize PyMongo to work with MongoDBs
-client = pymongo.MongoClient(connect_string)
+client = MongoClient(connect_string)
 
 # Define database and collection
 db = client.NationalParksDB
@@ -12,21 +12,37 @@ def fetchParksByState(state):
             "addresses": { "$elemMatch": {"stateCode":state } }
     })
     print("Inside fetchParksByState")
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
 
 def fetchParksByActivity(activity):
     parks = db.parks.find({
            "activities": { "$elemMatch": {"name":activity } }
     })
     print("Inside fetchParksByActivity")
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    
+    return results
 
 def fetchParksByParkName(parkname):
     parks = db.parks.find({
           "fullName":  parkname
     })
     print("Inside fetchParksByParkName")
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
 
 def fetchParksBySTandAct(state, activity):
     parks = db.parks.find({"$and": [
@@ -36,7 +52,12 @@ def fetchParksBySTandAct(state, activity):
     )
     print("Inside fetchParksBySTandAct")
     # Return results
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
 
 
 def fetchParksByStAndPark(state,parkname):
@@ -46,7 +67,12 @@ def fetchParksByStAndPark(state,parkname):
 
     )
     print("Inside fetchParksByStAndPark")
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
 
 def fetchParksByActAndPark(activity,parkname):
     parks = db.parks.find({"$and": [
@@ -55,4 +81,9 @@ def fetchParksByActAndPark(activity,parkname):
 
     )
     print("Inside fetchParksByActAndPark")
-    return parks
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results

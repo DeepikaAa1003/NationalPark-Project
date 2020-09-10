@@ -20,52 +20,33 @@ def home():
 # search park by state
 @app.route("/parks/v1.0/SearchParksByState/<state>")
 def fetchParksByState(state):
-
-    
-    Parks_data = NPS_Mongo.fetchParksByState(state)
-    return jsonify(Parks_data)
+    return jsonify(NPS_Mongo.fetchParksByState(state))
 
 # search park by activity
 @app.route("/parks/v1.0/SearchParksByActivity/<activity>")
 def fetchParksByActivity(activity):
-
-    
-    Parks_data = NPS_Mongo.fetchParksByActivity(activity)
-    return jsonify(Parks_data)
-
+    return jsonify(NPS_Mongo.fetchParksByActivity(activity))
 
 # search park by Park Name
 @app.route("/parks/v1.0/SearchParksByParkName/<parkname>")
 def fetchParksByParkName(parkname):
-
-    
-    Parks_data = NPS_Mongo.fetchParksByParkName(parkname)
-    return jsonify(Parks_data)
+    return jsonify(NPS_Mongo.fetchParksByParkName(parkname))
 
 # search park by state and activity
 @app.route("/parks/v1.0/SearchParksByStAndAct/<state>/<activity>")
 def fetchParksBySTandAct(state, activity):
-
-    
-    Parks_data = NPS_Mongo.fetchParksBySTandAct(state, activity)
-    return jsonify(Parks_data)
+    return jsonify(NPS_Mongo.fetchParksBySTandAct(state, activity))
 
 # search park by state and park name
 @app.route("/parks/v1.0/SearchParksByStAndPark/<state>/<parkname>")
 def fetchParksByStAndPark(state,parkname):
-
-    
-    Parks_data = NPS_Mongo.fetchParksByStAndPark(state,parkname)
-    return jsonify(Parks_data)
+    return jsonify(NPS_Mongo.fetchParksByStAndPark(state,parkname))
 
 
 # search park by activity and park name
-@app.route("/parks/v1.0/SearchParksByActAndPark /<activity>/<parkname>")
+@app.route("/parks/v1.0/SearchParksByActAndPark/<activity>/<parkname>")
 def fetchParksByActAndPark(activity,parkname):
-
-    
-    Parks_data = NPS_Mongo.fetchParksByActAndPark(activity,parkname)
-    return jsonify(Parks_data)
+    return jsonify(NPS_Mongo.fetchParksByActAndPark(activity,parkname))
 
 # Get all activities
 
