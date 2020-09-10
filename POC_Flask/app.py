@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, jsonify
 from flask_pymongo import PyMongo
-import NPS_Functions
+import NPS_Mongo
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -11,19 +11,78 @@ app = Flask(__name__)
 def home():
 
     # Find one record of data from the mongo database
-    Parks_data = NPS_Functions.findonePark()
+#    Extract list of states, activities and park names to display in drop down values
+
     # Return template and data
-    return render_template("index.html", list=Parks_data)
+    return render_template("index.html")
 
 
-# Route that will trigger the scrape function
-@app.route("/SearchParks")
-def scrape():
+# search park by state
+@app.route("/parks/v1.0/SearchParksByState/<state>")
+def fetchParksByState(state):
 
     
-    Parks_data = NPS_Functions.findParksByState()
-    print(Parks_data)
-    return render_template("bonus.html", list=Parks_data)
+    Parks_data = NPS_Mongo.fetchParksByState(state)
+    return jsonify(Parks_data)
+
+# search park by activity
+@app.route("/parks/v1.0/SearchParksByActivity/<activity>")
+def fetchParksByActivity(activity):
+
+    
+    Parks_data = NPS_Mongo.fetchParksByActivity(activity)
+    return jsonify(Parks_data)
+
+
+# search park by Park Name
+@app.route("/parks/v1.0/SearchParksByParkName/<parkname>")
+def fetchParksByParkName(parkname):
+
+    
+    Parks_data = NPS_Mongo.fetchParksByParkName(parkname)
+    return jsonify(Parks_data)
+
+# search park by state and activity
+@app.route("/parks/v1.0/SearchParksByStAndAct/<state>/<activity>")
+def fetchParksBySTandAct(state, activity):
+
+    
+    Parks_data = NPS_Mongo.fetchParksBySTandAct(state, activity)
+    return jsonify(Parks_data)
+
+# search park by state and park name
+@app.route("/parks/v1.0/SearchParksByStAndPark/<state>/<parkname>")
+def fetchParksByStAndPark(state,parkname):
+
+    
+    Parks_data = NPS_Mongo.fetchParksByStAndPark(state,parkname)
+    return jsonify(Parks_data)
+
+
+# search park by activity and park name
+@app.route("/parks/v1.0/SearchParksByActAndPark /<activity>/<parkname>")
+def fetchParksByActAndPark(activity,parkname):
+
+    
+    Parks_data = NPS_Mongo.fetchParksByActAndPark(activity,parkname)
+    return jsonify(Parks_data)
+
+# Get all activities
+
+# Get all states
+
+# Get all park names
+
+# Get Camground data by Park Code
+
+# Get ThingsToDO by Park Code
+
+# Get Last Decade visits by park code( to get last decade visits for a particular park)
+
+# Get Last Decade visits by Year ( To get visits for all parks for a particular year)
+
+# Get monthly visits by Month ( Pass a particular month like Jan and get visits of all parks)
+
 
 
 if __name__ == "__main__":
