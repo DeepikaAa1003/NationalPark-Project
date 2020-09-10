@@ -87,3 +87,19 @@ def fetchParksByActAndPark(activity,parkname):
         results.append(park)
     print(results)
     return results
+
+
+def fetchParksByActStateAndPark(activity, state, parkname):
+    parks = db.parks.find({"$and": [
+    { "fullName":  parkname},
+    { "activities": { "$elemMatch": {"name":activity } } },
+    { "addresses": { "$elemMatch": {"stateCode": state } } }]}
+
+    )
+    print("Inside fetchParksByActStateAndPark")
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
