@@ -1,60 +1,115 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Home</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>National Parks</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-</head>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
 
-<body>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 jumbotron text-center">
-        <h1>National Parks</h1>
-    
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../static/css/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+  <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+    <li class="nav-item dropdown parkdrdw">
+      <a class="nav-link dropdown-toggle parkdrdw" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <strong> Parks Finder </strong>
+      </a>
+      <div class="dropdown-menu parkdrdw" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item parkdrdw" href="#">National Parks Analysis</a>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <div class="well">
-          <h5>Park Selector:</h5>
-          <select id="selParkName" onchange="ParkoptionChanged(this.value)"></select>
-          <select id="selStates" onchange="StateoptionChanged(this.value)"></select><br>
-          <select id="selActivity" onchange="ActivityoptionChanged(this.value)"></select>       
-          
-        </div>
+    </li>
+  </nav>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div></div>
+      <div class="sidebar-sticky ml-5 pt-5 mt-5">
+        <h5>States:</h5>
+          <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+            <option value="value" selected>Select Option</option>
+              {% for state in states_list %}
+                <option value="{{state}}">{{state}}</option>
+              {% endfor %}          
+          </select><br>
         
+        <h5 class = "mt-2">Activities:</h5>
+          <select class = "DropSelection" id="selActivity" onchange="optionChanged(this.value)">
+            <option value="value" selected>Select Option</option>
+              {% for act in activities_list %}
+                <option value="{{act}}">{{act}}</option>
+              {% endfor %}          
+          </select><br>
+
+        <h5 class = "mt-2">Park Name:</h5>
+          <select class = "DropSelection" id="selParkName" onchange="optionChanged(this.value)">
+            <option value="value" selected>Select Option</option>
+              {% for park in parks_list %}
+                <option value="{{park}}">{{park}}</option>
+              {% endfor %}          
+          </select><br>
         
-        <div class="col-md-2"></div><button id ="park" type="button" class="btn btn-primary searchparks">Submit</button></div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h3 class="panel-title">Demographic Info</h3>
-          </div>
-          <div id="sample-metadata" class="panel-body"></div>
-        </div>
+        <input id = "park" class="btn btn-primary mt-3" type="submit" value="Submit">
       </div>
-      <div class="col-md-5">
-        <div id="bar"></div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">US National Parks</h1>
       </div>
-      <div class="col-md-5">
-        <div id="gauge"></div>
+
+      <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+
+      <h2>Search Results</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                  <th>Park Name</th>
+                  <th>Contact Details</th>
+                  <th>Park Type</th>
+                  <th>More Info</th>
+                </tr>
+              </thead>
+              <tbody id = "searchResults">
+              </tbody>
+        </table>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div id="bubble"></div>
-      </div>
-    </div>
+    </main>
   </div>
-    
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="/static/js/searchParks.js"></script>
-
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <!-- <script src="../static/js/dashboard.js"></script>
+        <script src="../static/js/plots.js"></script> -->
+        <script src="../static/js/searchParks.js"></script>
 </body>
-
 </html>

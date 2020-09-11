@@ -103,3 +103,16 @@ def fetchParksByActStateAndPark(activity, state, parkname):
         results.append(park)
     print(results)
     return results
+
+def fetchParksByParkCode(parkcode):
+    parks = db.parks.find({
+          "parkCode":  parkcode
+    })
+    print("Inside fetchParksByParkCode")
+    results = []
+    for park in parks:
+        park.pop('_id') 
+        results.append(park)
+    print(results)
+    return results
+

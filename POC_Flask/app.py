@@ -53,6 +53,14 @@ def fetchParksByActAndPark(activity,parkname):
 def fetchParksByActStateAndPark(activity,state,parkname):
     return jsonify(NPS_Mongo.fetchParksByActStateAndPark(activity,state,parkname))
 
+@app.route("/parks/v1.0/ParkDetails/<parkcode>")
+def fetchParksbyCode(parkcode):
+    return render_template("park_details.html", parkcode = parkcode)
+
+
+@app.route("/parks/v1.0/ParkDetailsbyParkCode/<parkcode>")
+def fetchParksByParkCode(parkcode):
+    return jsonify(NPS_Mongo.fetchParksByParkCode(parkcode))
 
 # Get all activities
 
