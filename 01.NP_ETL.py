@@ -31,7 +31,7 @@ park_base_url = "https://developer.nps.gov/api/v1/parks?"
 
 counter = 0
 while (counter <= 450):
-    with open('parks.json', 'w') as f:   
+    with open('Output/parks.json', 'w') as f:   
         park_url= f"{park_base_url}&api_key={np_api_key}&start={counter}"
         print(park_url)
         response_json = requests.get(park_url).json()
@@ -58,7 +58,7 @@ web_cams_url = "https://developer.nps.gov/api/v1/webcams?"
 
 cam_counter = 0
 while (cam_counter <= 150):
-    with open('webcams.json', 'w') as g:   
+    with open('Output/webcams.json', 'w') as g:   
         cam_url= f"{web_cams_url}&api_key={np_api_key}&start={cam_counter}"
         cam_response_json = requests.get(cam_url).json()
         json.dump(cam_response_json, g)
@@ -85,7 +85,7 @@ camps_url = "https://developer.nps.gov/api/v1/campgrounds?"
 
 camps_counter = 0
 while (camps_counter <= 500):
-    with open('campgrounds.json', 'w') as f:   
+    with open('Output/campgrounds.json', 'w') as f:   
         campgrounds_url= f"{camps_url}&api_key={np_api_key}&start={camps_counter}"
         camps_response_json = requests.get(campgrounds_url).json()
         json.dump(camps_response_json, f)

@@ -130,3 +130,6 @@ dmypy.json
 
 #api_key
 api_keys.py
+
+#config file
+DropDown/config.py

@@ -7,7 +7,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    states = NP_Functions.fetchAllStates()
+    p_names = NP_Functions.fetchAllParksNames()
+    activity = NP_Functions.fetchAllActivities()
+    return render_template("index.html", states_list = states, parks_list = p_names, activities_list = activity)
 
 # Get all park names
 
