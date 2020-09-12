@@ -57,6 +57,29 @@ def fetchParksByActAndPark(activity,parkname):
 def fetchParksByActStateAndPark(state,activity,parkname):
     return jsonify(NPS_Mongo.fetchParksByActStateAndPark(state, activity, parkname))
 
+
+
+# Get all park names
+
+@app.route("/parksNames")
+def parksNames():
+    parks_data = NPS_Mongo.fetchAllParksNames()
+    return jsonify(parks_data)
+
+# Get all states
+
+@app.route("/states")
+def states():
+    states_data = NPS_Mongo.fetchAllStates()
+    return jsonify(states_data)
+
+# Get All activities
+
+@app.route("/activities")
+def activities():
+    activities_data = NPS_Mongo.fetchAllActivities()
+    return jsonify(activities_data)
+
 #Load Park Details Page
 @app.route("/parks/v1.0/ParkDetails/<parkcode>")
 def fetchParksbyCode(parkcode):
@@ -67,11 +90,13 @@ def fetchParksbyCode(parkcode):
 def fetchParksByParkCode(parkcode):
     return jsonify(NPS_Mongo.fetchParksByParkCode(parkcode))
 
-# Get all activities
-
-# Get all states
-
-# Get all park names
+#Load Park Analysis Page
+@app.route("/parks/v1.0/ParkAnalysis/")
+def DisplayParkAnalysis():
+    # Call function to extract list of park names
+    # Call function to extract list of months
+    # Call function to extract list of regions
+    return render_template("park_analysis.html")
 
 # Get Camground data by Park Code
 

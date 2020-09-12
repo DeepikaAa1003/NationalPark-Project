@@ -16,12 +16,12 @@ function statechanged(state) {
 }
 function activitychanged(activity) {
 // Fetch new data each time a new sample is selected
-selectedState = activity;
+    selectedActivity = activity;
 
 }
 function parkchanged(parkname) {
 // Fetch new data each time a new sample is selected
-selectedState = parkname;
+    selectedParkName = parkname;
 
 }
 function searchParks(event){
