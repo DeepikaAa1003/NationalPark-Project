@@ -94,14 +94,23 @@ def fetchParksByParkCode(parkcode):
 @app.route("/parks/v1.0/ParkAnalysis/")
 def DisplayParkAnalysis():
     # Call function to extract list of park names
+    parks_names = NPS_Mongo.fetchAllParksNames()
     # Call function to extract list of months
+    months = NPS_Mongo.fetchAllMonths()
     # Call function to extract list of regions
-    return render_template("park_analysis.html")
+    regions = NPS_Mongo.fetchAllRegions()
+    return render_template("park_analysis.html", parks_list = parks_names, months_list = months, regions_list = regions )
 
-# Get Camground data by Park Code
+@app.route("/parks/v1.0/ParksCodesByRegion/<region>")
+def fetchParksCodesByRegion(region):
+    code_list = NPS_Mongo.fetchParkCodeByRegion(region)
+    parks_filered = NPS_Mongo.fetchCoordinatesByCodeList(code_list)
+    return jsonify(parks_filered)
 
-# Get ThingsToDO by Park Code
+@app.route("/parks/v1.0/AllRegions/")
+def fetchAllRegions():
 
+    return jsonify(NPS_Mongo.fetchAllRegions())
 # Get Last Decade visits by park code( to get last decade visits for a particular park)
 
 # Get Last Decade visits by Year ( To get visits for all parks for a particular year)
