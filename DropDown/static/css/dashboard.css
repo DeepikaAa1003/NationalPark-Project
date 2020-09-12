@@ -1,6 +1,6 @@
-body {
+.index_background {
   font-size: .875rem;
-  background-image: url("../Images/markus-spiske-JXZYAWCFBbI-unsplash.jpg");
+  background-image: url("../Images/background_image.jpg");
   background-color: #cccccc;
 }
 
@@ -53,7 +53,7 @@ body {
 
 .sidebar .nav-link .feather {
   margin-right: 4px;
-  color: #999;
+  color: white;
 }
 
 .nav-link
@@ -85,9 +85,9 @@ body {
   right: 1rem;
 }
 
-.parkdrdw{
+.nav-link{
   color: white;
-  font-family: Arial;
+  font-family: Work Verdana, Geneva, Tahoma, sans-serif;
   font-size: large;
 }
 
@@ -113,4 +113,14 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
+.DropSelection{
+  width:200px
+}
 
+.dashboard-background{
+  background-color :#eaece5;
+}
+
+.border{
+  border:1px solid black;
+}
