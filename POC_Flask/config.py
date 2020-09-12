@@ -1,2 +1,2 @@
-connect_string = "mongodb+srv://ProjectNPSParks:rUnrZ7ZjLJVXyT6@cluster0.za3mz.mongodb.net/<dbname>?retryWrites=true&w=majority"
+connect_string = "mongodb+srv://ProjectNPSParks:rUnrZ7ZjLJVXyT6@cluster0.za3mz.mongodb.net/NationalParksDB?retryWrites=true&w=majority"
 

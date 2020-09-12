@@ -7,6 +7,7 @@ sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
 
 # Initialize PyMongo to work with MongoDBs
 client = MongoClient(connect_string)
+print(client)
 
 # Define database and collection
 db = client.NationalParksDB
@@ -188,6 +189,8 @@ def fetchCoordinatesByCodeList(park_codes_list):
             park_by_region.append(i)
 
     return(park_by_region)
+
+fetchParkCodeByRegion("Southeast")
 
 
 
