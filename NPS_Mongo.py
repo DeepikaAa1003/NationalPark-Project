@@ -129,7 +129,8 @@ def fetchAllParksNames():
 
 def fetchAllStates():
     states_list = []
-    for states in parks_collection.find():
+    parksdata = db.parks.find({})
+    for states in parksdata:
         states_list += [states["states"]]
     print(states_list)
     print(len(states_list))
@@ -137,7 +138,8 @@ def fetchAllStates():
 
 def fetchAllActivities():
     activities_list = []
-    for activity in activities_collection.find():
+    activitiesdata = db.Activities.find({})
+    for activity in activitiesdata:
         activities_list += [activity["name"]]
     print(activities_list)
     print(len(activities_list))
