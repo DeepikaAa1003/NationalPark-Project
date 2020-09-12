@@ -1,30 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>City Population</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Park Details</title>
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/dashboard/">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
    crossorigin=""/>
 
-  <!-- Our CSS -->
-  <link src="{{url_for('static', filename='css/dashboard.css')}}" rel = "stylesheet">
-</head>
 
-<body>
-  <!-- The div where we will inject our map -->
-  <div id="map"></div>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
-  <!-- API key -->
-  <script src="{{url_for('static', filename='js/config.js')}}"></script>
-  <!-- Our JS -->
-  <script src="{{url_for('static', filename='js/parks_analysis.js')}}"></script>
-        
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='css/dashboard.css')}}" rel = "stylesheet">
+  </head>
+  <body class = "dashboard-background">
+
+    
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html"><strong>Home</strong> <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/parks/v1.0/"><strong>National Parks Dashboard</strong></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center"><strong>Interactive Dashboard</strong></h1>
+    </div>
+  </div>
+  
+  
+
+  
+<div class = "row">
+    <div class = "col-md-12">
+        <h5 class = "ml-3">Select Region:</h5>
+          <select class = "DropSelection ml-3" id="selRegion" onchange="optionChangedRegion(this.value)">
+            <option value="value" selected>Select Option</option>
+              {% for region in regions_list %}
+                <option value="{{region}}">{{region}}</option>
+              {% endfor %}          
+          </select><br>
+    </div>
+
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <main role="main" class="col-md-12 px-md-4">
+    
+    <div class = "row mb-3">
+        <div class = "col-md-12"></div>
+    </div>
+    <div class="row mb-2">
+      
+        <div class="col-md-6">
+          <div class="row no-gutters border rounded overflow-hidden border flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static map">
+              <h3 class="mb-2">Park Location by Region</h3>
+              <div id="map"></div>
+            </div> 
+          </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <h3 class="mb-0">Number of Visits per Park in a Region for 2019</h3>
+                <canvas class="my-4 w-100" id="myChart1" width="900" height="380"></canvas>
+              </div>
+            </div>
+      </div>
+      </div>
+
+      <div class = "row">
+        <div class = "col-md-6">
+            <h5>Select Park:</h5>
+              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+                <option value="value" selected>Select Option</option>
+                  {% for park in parks_list %}
+                    <option value="{{park}}">{{park}}</option>
+                  {% endfor %}          
+              </select><br>
+        </div>
+
+        <div class = "col-md-6">
+            <h5>Select Month:</h5>
+              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+                <option value="value" selected>Select Option</option>
+                  {% for month in months_list %}
+                    <option value="{{month}}">{{month}}</option>
+                  {% endfor %}          
+              </select><br>
+        </div>
+        </div>
+
+      <div class = "row mb-3">
+        <div class = "col-md-12"></div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <h3 class="mb-0">Montly visits per selected park</h3>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+               
+              </div>
+      
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+              <div class="col p-4 d-flex flex-column position-static">
+                <h3 class="mb-0">For each park in a region by month</h3>
+                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+              </div>
+      
+            </div>
+          </div>
+      </div>
+      
+    </main>
+    
+</div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!-- Leaflet JS -->
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+        <script src="{{url_for('static', filename='js/config.js')}}"></script>
+        <script src="{{url_for('static', filename='js/parks_analysis.js')}}"></script>
+
 </body>
 </html>

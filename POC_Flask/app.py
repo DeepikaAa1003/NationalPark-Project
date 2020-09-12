@@ -111,6 +111,10 @@ def fetchParksCodesByRegion(region):
 def fetchAllRegions():
 
     return jsonify(NPS_Mongo.fetchAllRegions())
+
+@app.route("/parks/v1.0/Visits2019ByRegion/<region>")
+def fetch2019VisitsByParkRegion():
+    return(NPS_Mongo.fetchVisits2019ByRegion())
 # Get Last Decade visits by park code( to get last decade visits for a particular park)
 
 # Get Last Decade visits by Year ( To get visits for all parks for a particular year)

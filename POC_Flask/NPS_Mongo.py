@@ -190,7 +190,14 @@ def fetchCoordinatesByCodeList(park_codes_list):
 
     return(park_by_region)
 
-fetchParkCodeByRegion("Southeast")
+def fetchVisits2019ByRegion(selected_region):
+    parks_visits = []
+    for park in month_collection.find({"region": selected_region}):
+        parks_visits.append(park)
+    print(len(parks_visits))
+    return parks_visits
+
+
 
 
 
