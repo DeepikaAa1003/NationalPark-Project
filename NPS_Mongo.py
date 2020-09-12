@@ -120,8 +120,9 @@ def fetchParksByParkCode(parkcode):
 
 def fetchAllParksNames():
     parks_names = []
-    for park in parks_collection.find():
-        parks_names += [park["fullName"]]
+    parksdata = db.parks.find({})
+    for park in parksdata:
+        parks_names.append(park["fullName"])
     print(parks_names)
     print(len(parks_names))
     return parks_names
