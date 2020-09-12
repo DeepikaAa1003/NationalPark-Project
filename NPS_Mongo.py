@@ -130,8 +130,8 @@ def fetchAllParksNames():
 def fetchAllStates():
     states_list = []
     parksdata = db.parks.find({})
-    for states in parksdata:
-        states_list += [states["states"]]
+    for park in parksdata:
+        states_list.append(park["states"])
     print(states_list)
     print(len(states_list))
     return states_list
