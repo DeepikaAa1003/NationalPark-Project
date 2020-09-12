@@ -6,6 +6,8 @@ client = MongoClient(connect_string)
 
 # Define database and collection
 db = client.NationalParksDB
+parks_collection = db.parks
+activities_collection = db.Activities
 
 def fetchParksByState(state):
     parks = db.parks.find({
@@ -116,3 +118,26 @@ def fetchParksByParkCode(parkcode):
     print(results)
     return results
 
+def fetchAllParksNames():
+    parks_names = []
+    for park in parks_collection.find():
+        parks_names += [park["fullName"]]
+    print(parks_names)
+    print(len(parks_names))
+    return parks_names
+
+def fetchAllStates():
+    states_list = []
+    for states in parks_collection.find():
+        states_list += [states["states"]]
+    print(states_list)
+    print(len(states_list))
+    return states_list
+
+def fetchAllActivities():
+    activities_list = []
+    for activity in activities_collection.find():
+        activities_list += [activity["name"]]
+    print(activities_list)
+    print(len(activities_list))
+    return activities_list
