@@ -90,7 +90,8 @@
         <div class="col-md-6">
           <div class="row no-gutters border rounded overflow-hidden border flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static map">
-              <h5 class="mb-2 text-center">Park Location by Region</h5>
+              <h5 class="mb-0 text-center">Park Location by Region</h5>
+              <p class="mb-0 text-center region"></p>
               <div id="map"></div>
             </div> 
           </div>
@@ -100,7 +101,6 @@
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col p-4 d-flex flex-column position-static">
                 <h5 class="mb-2 text-center">Number of Visits per Park-Region 2019</h5>
-                <!-- <canvas class="my-4 w-100" id="myChart1" width="900" height="380"></canvas> -->
                 <div id="chart1"></div>
               </div>
             </div>
@@ -110,7 +110,7 @@
       <div class = "row">
         <div class = "col-md-6">
             <h5>Select Park:</h5>
-              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+              <select class = "DropSelection" id="selStates" onchange="optionChangedPark(this.value)">
                 <option value="value" selected>Select Option</option>
                   {% for park in parks_list %}
                     <option value="{{park}}">{{park}}</option>
@@ -120,7 +120,7 @@
 
         <div class = "col-md-6">
             <h5>Select Month:</h5>
-              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+              <select class = "DropSelection" id="selStates" onchange="optionChangedMonth(this.value)">
                 <option value="value" selected>Select Option</option>
                   {% for month in months_list %}
                     <option value="{{month}}">{{month}}</option>
@@ -136,8 +136,8 @@
         <div class="col-md-6">
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0 text-center">Montly visits per park</h3>
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                <h5 class="mb-2 text-center">Montly visits per park</h5>
+                <div id="chart2"></div>
                
               </div>
       
@@ -146,8 +146,8 @@
           <div class="col-md-6">
             <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0 text-center">For each park in a region by month</h3>
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                <h5 class="mb-2 text-center">For each park in a region by month</h5>
+                <div id="chart3"></div>
               </div>
       
             </div>

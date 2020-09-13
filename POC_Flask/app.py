@@ -57,9 +57,7 @@ def fetchParksByActAndPark(activity,parkname):
 def fetchParksByActStateAndPark(state,activity,parkname):
     return jsonify(NPS_Mongo.fetchParksByActStateAndPark(state, activity, parkname))
 
-
-
-# Get all park names
+# Get all park names first page
 
 @app.route("/parksNames")
 def parksNames():
@@ -90,11 +88,15 @@ def fetchParksbyCode(parkcode):
 def fetchParksByParkCode(parkcode):
     return jsonify(NPS_Mongo.fetchParksByParkCode(parkcode))
 
+@app.route("/parks/v1.0/AvailableVisitsParknames/")
+def fetchAvailableVisitsParksNames():
+    return jsonify(NPS_Mongo.fetchAvailableVisitsParksNames())
+
 #Load Park Analysis Page
 @app.route("/parks/v1.0/ParkAnalysis/")
 def DisplayParkAnalysis():
     # Call function to extract list of park names
-    parks_names = NPS_Mongo.fetchAllParksNames()
+    parks_names = NPS_Mongo.fetchAvailableVisitsParksNames()
     # Call function to extract list of months
     months = NPS_Mongo.fetchAllMonths()
     # Call function to extract list of regions
@@ -117,13 +119,15 @@ def fetch2019VisitsByParkRegion(region_name):
     parks_visitors = NPS_Mongo.fetchVisits2019ByRegion(region_name)
     return jsonify(parks_visitors)
 
-# Get Last Decade visits by park code( to get last decade visits for a particular park)
+@app.route("/parks/v1.0/MonthlyVisitsByPark/<park_name>")
+def fetchMonthlyVisitsByParkName(park_name):
+    park_monthly_visitors = NPS_Mongo.fetchMonthlyVisitsByPark(park_name)
+    return jsonify(park_monthly_visitors)
 
-# Get Last Decade visits by Year ( To get visits for all parks for a particular year)
-
-# Get monthly visits by Month ( Pass a particular month like Jan and get visits of all parks)
-
-
+@app.route("/parks/v1.0/MonthlyVisitsByRegion/<input_region>")
+def fetchMonthlyVisitsByParkRegion(input_region):
+    parks_montly_visitors = NPS_Mongo.fetchMonthlyVisitsByRegion(input_region)
+    return jsonify(parks_montly_visitors)
 
 if __name__ == "__main__":
     app.run(debug=True)

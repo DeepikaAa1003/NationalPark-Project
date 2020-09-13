@@ -140,6 +140,19 @@ body {
   display:inline-block
 }
 
+
+#chart2{
+  height: 300px;
+  width: 500px;
+  display:inline-block
+}
+
+#chart3{
+  height: 300px;
+  width: 500px;
+  display:inline-block
+}
+
 h1 {
   text-align: center;
 }

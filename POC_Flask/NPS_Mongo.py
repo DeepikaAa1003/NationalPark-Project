@@ -167,8 +167,19 @@ def fetchAllRegions():
     print(len(regions_list))
     return regions_list
 
+def fetchAvailableVisitsParksNames():
+    parks_names = []
+    for park in month_collection.find():
+        parks_names += [park["park_name"]]
+    print(parks_names)
+    print(len(parks_names))
+    return parks_names
+
 def fetchParkCodeByRegion(region_name):
-    region_name = region_name + " "
+    if region_name == "Alaska":
+       region_name = region_name
+    else:
+        region_name = region_name + " "
     parks = month_collection.find({
            "region": region_name})
     park_codes_list = []
@@ -202,7 +213,29 @@ def fetchVisits2019ByRegion(selected_region):
         parks_visits.append(park)
     print(len(parks_visits))
     return parks_visits
-    
+
+def fetchMonthlyVisitsByPark(park):
+    park_data = db.monthly_visits_2019.find({"park_name":park})
+    parks_monthly_visits = []
+    for park in park_data:
+        park.pop('_id')
+        parks_monthly_visits.append(park)
+        print(parks_monthly_visits)
+        return parks_monthly_visits
+
+def fetchMonthlyVisitsByRegion(region_input):
+    if region_input == "Alaska":
+       region_input = region_input
+    else:
+        region_input = region_input + " " 
+    park_montly_data = month_collection.find({"region": region_input})
+    parks_monthly_visits = []
+    for park in park_montly_data:
+        park.pop('_id') 
+        parks_monthly_visits.append(park)
+    print(len(parks_monthly_visits))
+    return parks_monthly_visits
+
 
 
 
