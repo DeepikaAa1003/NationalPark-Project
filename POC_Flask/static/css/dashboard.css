@@ -130,6 +130,12 @@ body {
 /* set map, body, and html to 100% of the screen size */
 #map{
   height: 300px;
+  width: 600px;
+  display:inline-block
+}
+
+#chart1{
+  height: 300px;
   width: 500px;
   display:inline-block
 }
