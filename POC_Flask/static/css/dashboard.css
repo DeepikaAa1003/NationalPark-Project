@@ -1,10 +1,11 @@
-.index_background {
+#index_background {
   font-size: .875rem;
   background-image: url("../Images/background_image.jpg");
   background-color: #cccccc;
 }
 
 #mapid { height: 600px; }
+#regionmap { height: 600px; }
 .feather {
   width: 16px;
   height: 16px;

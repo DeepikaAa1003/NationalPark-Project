@@ -12,7 +12,10 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -30,7 +33,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="static/css/dashboard.css" rel="stylesheet">
+    <script src="{{url_for('static', filename='css/dashboard.css')}}"></script>
   </head>
   <body class = "dashboard-background">
 
@@ -52,7 +55,7 @@
       <h1 class="display-4 text-center"><strong>Interactive Dashboard</strong></h1>
     </div>
   </div>
-
+  <div id = "regionmap"></div>
 <div class = "row">
     <div class = "col-md-12">
         <h5 class = "ml-3">Select Region:</h5>
@@ -79,7 +82,9 @@
           <div class="row no-gutters border rounded overflow-hidden border flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
               <h3 class="mb-0">Park Location by Region</h3>
-              <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+              <canvas class="my-4 w-100" id="myChart" width="900" height="380">
+                
+              </canvas>
             </div>
     
           </div>
@@ -142,11 +147,17 @@
     </main>
 
 </div>
+<!-- Leaflet JS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+ integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+ crossorigin=""></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
       <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.js"></script>
+        <script src="{{url_for('static', filename='js/config.js')}}"></script>
+        <script src="{{url_for('static', filename='js/parks_analysis.js')}}"></script>
 </body>
 </html>

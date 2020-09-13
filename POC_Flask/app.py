@@ -1,6 +1,12 @@
 from flask import Flask, render_template, redirect, jsonify
 from flask_pymongo import PyMongo
-import NPS_Mongo
+from NPS_Mongo import NPS_Mongo
+
+
+#################################################
+# Database Setup
+#################################################
+data = NPS_Mongo()
 
 # Create an instance of Flask
 app = Flask(__name__)
@@ -15,47 +21,47 @@ def home():
 #    Extract list of states, activities and park names to display in drop down values
 
     # Return template and data
-    states = NPS_Mongo.fetchAllStates()
-    p_names = NPS_Mongo.fetchAllParksNames()
-    activity = NPS_Mongo.fetchAllActivities()
+    states = data.fetchAllStates()
+    p_names = data.fetchAllParksNames()
+    activity = data.fetchAllActivities()
     return render_template("index.html", states_list = states, parks_list = p_names, activities_list = activity)
 
 
 # search park by state
 @app.route("/parks/v1.0/SearchParksByState/<state>")
 def fetchParksByState(state):
-    return jsonify(NPS_Mongo.fetchParksByState(state))
+    return jsonify(data.fetchParksByState(state))
 
 # search park by activity
 @app.route("/parks/v1.0/SearchParksByActivity/<activity>")
 def fetchParksByActivity(activity):
-    return jsonify(NPS_Mongo.fetchParksByActivity(activity))
+    return jsonify(data.fetchParksByActivity(activity))
 
 # search park by Park Name
 @app.route("/parks/v1.0/SearchParksByParkName/<parkname>")
 def fetchParksByParkName(parkname):
-    return jsonify(NPS_Mongo.fetchParksByParkName(parkname))
+    return jsonify(data.fetchParksByParkName(parkname))
 
 # search park by state and activity
 @app.route("/parks/v1.0/SearchParksByStAndAct/<state>/<activity>")
 def fetchParksBySTandAct(state, activity):
-    return jsonify(NPS_Mongo.fetchParksBySTandAct(state, activity))
+    return jsonify(data.fetchParksBySTandAct(state, activity))
 
 # search park by state and park name
 @app.route("/parks/v1.0/SearchParksByStAndPark/<state>/<parkname>")
 def fetchParksByStAndPark(state,parkname):
-    return jsonify(NPS_Mongo.fetchParksByStAndPark(state,parkname))
+    return jsonify(data.fetchParksByStAndPark(state,parkname))
 
 
 # search park by activity and park name
 @app.route("/parks/v1.0/SearchParksByActAndPark/<activity>/<parkname>")
 def fetchParksByActAndPark(activity,parkname):
-    return jsonify(NPS_Mongo.fetchParksByActAndPark(activity,parkname))
+    return jsonify(data.fetchParksByActAndPark(activity,parkname))
 
 # search park by activity, state  and park name
 @app.route("/parks/v1.0/SearchParksByActStateAndPark/<activity>/<state>/<parkname>")
 def fetchParksByActStateAndPark(state,activity,parkname):
-    return jsonify(NPS_Mongo.fetchParksByActStateAndPark(state, activity, parkname))
+    return jsonify(data.fetchParksByActStateAndPark(state, activity, parkname))
 
 
 
@@ -63,21 +69,21 @@ def fetchParksByActStateAndPark(state,activity,parkname):
 
 @app.route("/parksNames")
 def parksNames():
-    parks_data = NPS_Mongo.fetchAllParksNames()
+    parks_data = data.fetchAllParksNames()
     return jsonify(parks_data)
 
 # Get all states
 
 @app.route("/states")
 def states():
-    states_data = NPS_Mongo.fetchAllStates()
+    states_data = data.fetchAllStates()
     return jsonify(states_data)
 
 # Get All activities
 
 @app.route("/activities")
 def activities():
-    activities_data = NPS_Mongo.fetchAllActivities()
+    activities_data = data.fetchAllActivities()
     return jsonify(activities_data)
 
 #Load Park Details Page
@@ -88,7 +94,7 @@ def fetchParksbyCode(parkcode):
 
 @app.route("/parks/v1.0/ParkDetailsbyParkCode/<parkcode>")
 def fetchParksByParkCode(parkcode):
-    return jsonify(NPS_Mongo.fetchParksByParkCode(parkcode))
+    return jsonify(data.fetchParksByParkCode(parkcode))
 
 #Load Park Analysis Page
 @app.route("/parks/v1.0/ParkAnalysis/")
