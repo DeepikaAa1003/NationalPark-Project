@@ -8,8 +8,8 @@ class NPS_Mongo():
         self.db = self.client.NationalParksDB
         self.parks = self.db.parks
         self.activities = self.db.Activities
-        self.month_collection = self.monthly_visits_2019
-        self.last_decade = self.last_decade_visits
+        self.month_collection = self.db.monthly_visits_2019
+        self.last_decade = self.db.last_decade_visits
 
     # Initialize PyMongo to work with MongoDBs
     # client = MongoClient(connect_string)
@@ -198,7 +198,7 @@ class NPS_Mongo():
 
     def fetchVisits2019ByRegion(self,selected_region):
         if selected_region == "Alaska":
-        selected_region = selected_region
+            selected_region = selected_region
         else:
             selected_region = selected_region + " " 
         park_data = self.last_decade.find({"region": selected_region})
