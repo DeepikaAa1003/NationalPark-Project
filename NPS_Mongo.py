@@ -173,6 +173,14 @@ class NPS_Mongo():
         print(regions_list)
         print(len(regions_list))
         return regions_list
+    
+    def fetchAvailableVisitsParksNames(self):
+        parks_names = []
+        for park in self.month_collection.find():
+            parks_names += [park["park_name"]]
+        print(parks_names)
+        print(len(parks_names))
+        return parks_names
 
     def fetchParkCodeByRegion(self,region_name):
         region_name = region_name + " "
@@ -209,3 +217,26 @@ class NPS_Mongo():
             parks_visits.append(park)
         print(len(parks_visits))
         return parks_visits
+
+    def fetchMonthlyVisitsByPark(self,park):
+        park_data = self.month_collection.find({"park_name":park})
+        parks_monthly_visits = []
+        for park in park_data:
+            park.pop('_id')
+            parks_monthly_visits.append(park)
+            print(parks_monthly_visits)
+            return parks_monthly_visits
+
+    def fetchMonthlyVisitsByRegion(self,region_input):
+        if region_input == "Alaska":
+            region_input = region_input
+        else:
+            region_input = region_input + " " 
+        park_montly_data = self.month_collection.find({"region": region_input})
+        parks_monthly_visits = []
+        for park in park_montly_data:
+            park.pop('_id') 
+            parks_monthly_visits.append(park)
+        print(len(parks_monthly_visits))
+        return parks_monthly_visits
+

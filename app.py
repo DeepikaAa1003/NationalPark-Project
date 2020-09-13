@@ -96,11 +96,15 @@ def fetchParksbyCode(parkcode):
 def fetchParksByParkCode(parkcode):
     return jsonify(data.fetchParksByParkCode(parkcode))
 
+
+@app.route("/parks/v1.0/AvailableVisitsParknames/")
+def fetchAvailableVisitsParksNames():
+    return jsonify(data.fetchAvailableVisitsParksNames())
 #Load Park Analysis Page
 @app.route("/parks/v1.0/ParkAnalysis/")
 def DisplayParkAnalysis():
     # Call function to extract list of park names
-    parks_names = data.fetchAllParksNames()
+    parks_names = data.fetchAvailableVisitsParksNames()
     # Call function to extract list of months
     months = data.fetchAllMonths()
     # Call function to extract list of regions
@@ -123,6 +127,15 @@ def fetch2019VisitsByParkRegion(region_name):
     parks_visitors = data.fetchVisits2019ByRegion(region_name)
     return jsonify(parks_visitors)
 
+@app.route("/parks/v1.0/MonthlyVisitsByPark/<park_name>")
+def fetchMonthlyVisitsByParkName(park_name):
+    park_monthly_visitors = data.fetchMonthlyVisitsByPark(park_name)
+    return jsonify(park_monthly_visitors)
+
+@app.route("/parks/v1.0/MonthlyVisitsByRegion/<input_region>")
+def fetchMonthlyVisitsByParkRegion(input_region):
+    parks_montly_visitors = data.fetchMonthlyVisitsByRegion(input_region)
+    return jsonify(parks_montly_visitors)
 # Get Camground data by Park Code
 
 # Get ThingsToDO by Park Code
