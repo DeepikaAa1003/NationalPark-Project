@@ -1,10 +1,10 @@
-#index_background {
+.index_background {
   font-size: .875rem;
-  background-image: url("https://images.unspalsh.com/1/type-away.jpg"); 
-   background-color:#428a7e8a;
+  /* background-image: url("https://images.unspalsh.com/1/type-away.jpg");  */
+   background-color:#e7ebef;
   }
-#parks-sidebar {
-  background-color:#428a7e8a;
+.parks-sidebar {
+  background-color:#e7ebef;
 }
 
 .feather {
@@ -25,6 +25,8 @@
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  
+  
 }
 
 @media (max-width: 767.98px) {

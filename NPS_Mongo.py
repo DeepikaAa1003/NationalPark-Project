@@ -11,13 +11,7 @@ class NPS_Mongo():
         self.month_collection = self.db.monthly_visits_2019
         self.last_decade = self.db.last_decade_visits
 
-    # Initialize PyMongo to work with MongoDBs
-    # client = MongoClient(connect_string)
-
-    # # Define database and collection
-    # db = client.NationalParksDB
-    # parks_collection = db.parks
-    # activities_collection = db.Activities
+    
 
     def fetchParksByState(self, state):
         parks = self.parks.find({
@@ -63,7 +57,7 @@ class NPS_Mongo():
 
         )
         print("Inside fetchParksBySTandAct")
-        # Return results
+        
         results = []
         for park in parks:
             park.pop('_id') 
@@ -133,6 +127,7 @@ class NPS_Mongo():
         parksdata = self.parks.find({})
         for park in parksdata:
             parks_names += [(park["fullName"])]
+        parks_names.sort()
         print(parks_names)
         print(len(parks_names))
         return parks_names
@@ -141,7 +136,11 @@ class NPS_Mongo():
         states_list = []
         parksdata = self.parks.find({})
         for park in parksdata:
-            states_list+= [(park["states"])]
+            templist = park["states"].split(",")
+            for i in templist:
+                if(i not in states_list):
+                     states_list+= [i]
+        states_list.sort()
         print(states_list)
         print(len(states_list))
         return states_list
@@ -151,6 +150,7 @@ class NPS_Mongo():
         activitiesdata = self.activities.find({})
         for activity in activitiesdata:
             activities_list += [activity["name"]]
+        activities_list.sort()
         print(activities_list)
         print(len(activities_list))
         return activities_list
@@ -160,7 +160,8 @@ class NPS_Mongo():
         query = self.month_collection.find_one()
         month_obj = query["month"]
         for j,k in month_obj.items():
-            months_list.append(j)      
+            months_list.append(j) 
+         
         print(months_list)
         return months_list
 
