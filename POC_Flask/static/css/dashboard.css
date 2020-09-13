@@ -124,3 +124,11 @@
 .border{
   border:1px solid black;
 }
+
+.picSlide{
+  height:100%;
+}
+
+#parkID{
+  display:none;
+}
