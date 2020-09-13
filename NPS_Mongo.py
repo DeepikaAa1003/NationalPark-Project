@@ -6,7 +6,7 @@ class NPS_Mongo():
     def __init__(self):
         self.client = MongoClient(connect_string)
         self.db = self.client.NationalParksDB
-        self.parks = self.db.parksdata
+        self.parks = self.db.parks
         self.activities = self.db.Activities
 
     # Initialize PyMongo to work with MongoDBs
@@ -17,7 +17,7 @@ class NPS_Mongo():
     # parks_collection = db.parks
     # activities_collection = db.Activities
 
-    def fetchParksByState(state):
+    def fetchParksByState(self, state):
         parks = self.parks.find({
                 "addresses": { "$elemMatch": {"stateCode":state } }
         })
@@ -29,7 +29,7 @@ class NPS_Mongo():
         print(results)
         return results
 
-    def fetchParksByActivity(activity):
+    def fetchParksByActivity(self,activity):
         parks = self.parks.find({
             "activities": { "$elemMatch": {"name":activity } }
         })
@@ -42,7 +42,7 @@ class NPS_Mongo():
         
         return results
 
-    def fetchParksByParkName(parkname):
+    def fetchParksByParkName(self,parkname):
         parks = self.parks.find({
             "fullName":  parkname
         })
@@ -54,7 +54,7 @@ class NPS_Mongo():
         print(results)
         return results
 
-    def fetchParksBySTandAct(state, activity):
+    def fetchParksBySTandAct(self,state, activity):
         parks = self.parks.find({"$and": [
         { "activities": { "$elemMatch": {"name":activity } } },
         { "addresses": { "$elemMatch": {"stateCode": state } } }]}
@@ -70,7 +70,7 @@ class NPS_Mongo():
         return results
 
 
-    def fetchParksByStAndPark(state,parkname):
+    def fetchParksByStAndPark(self,state,parkname):
         parks = self.parks.find({"$and": [
         { "fullName":  parkname},
         { "addresses": { "$elemMatch": {"stateCode": state } } }]}
@@ -84,7 +84,7 @@ class NPS_Mongo():
         print(results)
         return results
 
-    def fetchParksByActAndPark(activity,parkname):
+    def fetchParksByActAndPark(self,activity,parkname):
         parks = self.parks.find({"$and": [
         { "fullName":  parkname},
         { "activities": { "$elemMatch": {"name":activity } } }]}
@@ -99,7 +99,7 @@ class NPS_Mongo():
         return results
 
 
-    def fetchParksByActStateAndPark(activity, state, parkname):
+    def fetchParksByActStateAndPark(self,activity, state, parkname):
         parks = self.parks.find({"$and": [
         { "fullName":  parkname},
         { "activities": { "$elemMatch": {"name":activity } } },
@@ -114,7 +114,7 @@ class NPS_Mongo():
         print(results)
         return results
 
-    def fetchParksByParkCode(parkcode):
+    def fetchParksByParkCode(self,parkcode):
         parks = self.parks.find({
             "parkCode":  parkcode
         })
@@ -126,27 +126,27 @@ class NPS_Mongo():
         print(results)
         return results
 
-    def fetchAllParksNames():
+    def fetchAllParksNames(self):
         parks_names = []
         parksdata = self.parks.find({})
         for park in parksdata:
-            parks_names.append(park["fullName"])
+            parks_names += [(park["fullName"])]
         print(parks_names)
         print(len(parks_names))
         return parks_names
 
-    def fetchAllStates():
+    def fetchAllStates(self):
         states_list = []
         parksdata = self.parks.find({})
         for park in parksdata:
-            states_list.append(park["states"])
+            states_list+= [(park["states"])]
         print(states_list)
         print(len(states_list))
         return states_list
 
-    def fetchAllActivities():
+    def fetchAllActivities(self):
         activities_list = []
-        activitiesdata = self.Activities.find({})
+        activitiesdata = self.activities.find({})
         for activity in activitiesdata:
             activities_list += [activity["name"]]
         print(activities_list)
