@@ -1,12 +1,8 @@
-
-
 let selectedParkName = "", selectedState = "", selectedActivity = "";
 let searchParksButton = d3.select("#park");
 let searchCriteria = "";
-let tbody = d3.select("#searchResults");
-// let tbody;
-// let tabledata = d3.select("#searchParkResults");
-let parks = [];
+
+
 
  // Create a map object
 const myMap = L.map("mapid", {
@@ -58,8 +54,9 @@ function loadParkMap(parks){
 function searchParks(event){
     // tabledata.innerHTML = "";
     // tbody = tabledata.append("tbody");
-    
-
+    myMap.eachLayer(function (layer) {myMap.removeLayer(layer);});
+    let tabledata = d3.select("#searchParkResults");
+    tabledata.remove();
     // Find out which drop down values are selected and decide the selection criteria
     let searchCriteria;
     let searchParametersList = [];
@@ -115,6 +112,24 @@ function searchParks(event){
 }
 
 function ExtractData(searchCriteria, searchParametersList){
+
+    let divdata = d3.select("#searchparksdiv");
+    const tableEnter = divdata.append('table')
+      .attr('id', "searchParkResults")
+      .attr('class', 'table table-striped table-sm');
+    let tablehead = tableEnter.append("thead");
+    let headrow = tablehead.append("tr");
+    let headcell = headrow.append("th");
+    headcell.html("Park Name");
+    headcell = headrow.append("th");
+    headcell.html("Contact Details");
+    headcell = headrow.append("th");
+    headcell.html("Park Type");
+    headcell = headrow.append("th");
+    headcell.html("More Info");
+    tablebody = tableEnter.append("tbody");
+    let parks = L.layerGroup();
+    parks.clearLayers();
     // Prepare the URL to get the data for selected criteria and parameters from Mongo DB
     let dataUrl = `/parks/v1.0/${searchCriteria}`;
 
@@ -125,11 +140,15 @@ function ExtractData(searchCriteria, searchParametersList){
     console.log(dataUrl);
     let parkLat, parkLon, templocation;
     d3.json(dataUrl).then((data) => {
+
+    
         
         data.forEach((park) => {
-            parks.push([parseFloat(park.latitude),parseFloat(park.longitude)])
+            //  parks.push([parseFloat(park.latitude),parseFloat(park.longitude)])
+            singleParkMarker = L.marker([parseFloat(park.latitude),parseFloat(park.longitude)]).addTo(myMap);
+            parks.addLayer(singleParkMarker);
              
-            var row = tbody.append("tr");
+            var row = tablebody.append("tr");
                 var cell = row.append("td");
                 cell.html(park["fullName"]);
                 emailList = park["contacts"]["emailAddresses"]
@@ -150,9 +169,9 @@ function ExtractData(searchCriteria, searchParametersList){
         
     });
     
-    console.log("Calling LoadMap");
+    // console.log("Calling LoadMap");
     // console.log(parks);
-    loadParkMap(parks);
+    // loadParkMap(parks);
     
     
 }
@@ -160,4 +179,3 @@ function ExtractData(searchCriteria, searchParametersList){
 
   // Use D3 `.on` to attach a click handler
   searchParksButton.on("click", searchParks);
-  

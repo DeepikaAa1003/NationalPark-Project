@@ -1,11 +1,10 @@
 #index_background {
   font-size: .875rem;
-  background-image: url("../Images/background_image.jpg");
+  background-image: url("https://images.unspalsh.com/1/type-away.jpg");
   background-color: #cccccc;
 }
 
-#mapid { height: 600px; }
-#regionmap { height: 600px; }
+
 .feather {
   width: 16px;
   height: 16px;
@@ -126,3 +125,26 @@
 .border{
   border:1px solid black;
 }
+body {
+  padding: 0;
+  margin: 0;
+}
+
+/* set map, body, and html to 100% of the screen size */
+#map{
+  height: 300px;
+  width: 600px;
+  display:inline-block
+}
+
+#chart1{
+  height: 300px;
+  width: 500px;
+  display:inline-block
+}
+
+h1 {
+  text-align: center;
+}
+
+#mapid { height: 600px; }

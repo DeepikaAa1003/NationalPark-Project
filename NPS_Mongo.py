@@ -8,6 +8,8 @@ class NPS_Mongo():
         self.db = self.client.NationalParksDB
         self.parks = self.db.parks
         self.activities = self.db.Activities
+        self.month_collection = self.monthly_visits_2019
+        self.last_decade = self.last_decade_visits
 
     # Initialize PyMongo to work with MongoDBs
     # client = MongoClient(connect_string)
@@ -152,3 +154,57 @@ class NPS_Mongo():
         print(activities_list)
         print(len(activities_list))
         return activities_list
+
+    def fetchAllMonths(self):
+        months_list = []
+        query = self.month_collection.find_one()
+        month_obj = query["month"]
+        for j,k in month_obj.items():
+            months_list.append(j)      
+        print(months_list)
+        return months_list
+
+    def fetchAllRegions(self):
+        regions_data = []
+        for region in self.month_collection.find():
+            regions_data += [region["region"]]
+        regions_list = list(set(regions_data))
+        print(regions_list)
+        print(len(regions_list))
+        return regions_list
+
+    def fetchParkCodeByRegion(self,region_name):
+        region_name = region_name + " "
+        parks = self.month_collection.find({
+            "region": region_name})
+        park_codes_list = []
+        for park in parks:
+            print(park)
+            park_codes_list.append(park["park_code"])
+        print(park_codes_list)
+        return park_codes_list
+
+    def fetchCoordinatesByCodeList(self,park_codes_list):
+        park_by_region = []
+        for code in park_codes_list:
+            temp = self.parks.find({
+                "parkCode": code
+            })
+            for i in temp:
+                i.pop('_id')
+                park_by_region.append(i)
+
+        return(park_by_region)
+
+    def fetchVisits2019ByRegion(self,selected_region):
+        if selected_region == "Alaska":
+        selected_region = selected_region
+        else:
+            selected_region = selected_region + " " 
+        park_data = self.last_decade.find({"region": selected_region})
+        parks_visits = []
+        for park in park_data:
+            park.pop('_id') 
+            parks_visits.append(park)
+        print(len(parks_visits))
+        return parks_visits

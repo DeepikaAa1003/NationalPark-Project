@@ -33,7 +33,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <script src="{{url_for('static', filename='css/dashboard.css')}}"></script>
+    <link href="{{url_for('static', filename='css/dashboard.css')}}" rel = "stylesheet">
   </head>
   <body class = "dashboard-background">
 
@@ -56,13 +56,13 @@
     </div>
   </div>
   <div id = "regionmap"></div>
-<div class = "row">
+  <div class = "row">
     <div class = "col-md-12">
         <h5 class = "ml-3">Select Region:</h5>
-          <select class = "DropSelection ml-3" id="selStates" onchange="optionChanged(this.value)">
+          <select class = "DropSelection ml-3" id="selRegion" onchange="optionChangedRegion(this.value)">
             <option value="value" selected>Select Option</option>
-              {% for state in states_list %}
-                <option value="{{state}}">{{state}}</option>
+              {% for region in regions_list %}
+                <option value="{{region}}">{{region}}</option>
               {% endfor %}          
           </select><br>
     </div>
@@ -82,68 +82,70 @@
           <div class="row no-gutters border rounded overflow-hidden border flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
               <h3 class="mb-0">Park Location by Region</h3>
-              <canvas class="my-4 w-100" id="myChart" width="900" height="380">
+              <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380">
                 
-              </canvas>
+              </canvas> -->
+              <div id="map"></div>
             </div>
     
           </div>
-        </div>
-        <div class="col-md-6">
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-              <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0">Number of Visits per Park in a Region for 2019</h3>
-                <canvas class="my-4 w-100" id="myChart1" width="900" height="380"></canvas>
-              </div>
-            </div>
-      </div>
       </div>
 
+      <div class="col-md-6">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <h5 class="mb-2 text-center">Number of Visits per Park-Region 2019</h5>
+            <!-- <canvas class="my-4 w-100" id="myChart1" width="900" height="380"></canvas> -->
+            <div id="chart1"></div>
+          </div>
+        </div>
+      </div>
       <div class = "row">
-        <div class = "col-md-6">
-            <h5>Select Park:</h5>
-              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
-                <option value="value" selected>Select Option</option>
-                  {% for state in states_list %}
-                    <option value="{{state}}">{{state}}</option>
-                  {% endfor %}          
-              </select><br>
-        </div>
+          <div class = "col-md-6">
+              <h5>Select Park:</h5>
+                <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
+                  <option value="value" selected>Select Option</option>
+                    {% for park in parks_list %}
+                      <option value="{{park}}">{{park}}</option>
+                    {% endfor %}          
+                </select><br>
+          </div>
 
-        <div class = "col-md-6">
-            <h5>Select Month:</h5>
-              <select class = "DropSelection" id="selStates" onchange="optionChanged(this.value)">
-                <option value="value" selected>Select Option</option>
-                  {% for state in states_list %}
-                    <option value="{{state}}">{{state}}</option>
-                  {% endfor %}          
-              </select><br>
+          <div class = "col-md-6">
+              <h5>Select Month:</h5>
+                <select class = "DropSelection" id="selMonths" onchange="optionChanged(this.value)">
+                  <option value="value" selected>Select Option</option>
+                    {% for month in months_list %}
+                      <option value="{{month}}">{{month}}</option>
+                    {% endfor %}          
+                </select><br>
+          </div>
         </div>
+        <div class = "row mb-3">
+          <div class = "col-md-12"></div>
         </div>
-
-      <div class = "row mb-3">
-        <div class = "col-md-12"></div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-md-6">
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-              <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0">Montly visits per selected park</h3>
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+        <div class="row mb-2">
+          <div class="col-md-6">
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0 text-center">Montly visits per park</h3>
+                  <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                 
+                </div>
+        
               </div>
-      
-            </div>
           </div>
           <div class="col-md-6">
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-              <div class="col p-4 d-flex flex-column position-static">
-                <h3 class="mb-0">For each park in a region by month</h3>
-                <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                  <h3 class="mb-0 text-center">For each park in a region by month</h3>
+                  <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas>
+                </div>
+        
               </div>
-      
-            </div>
           </div>
-      </div>
+        </div>
+        
     </main>
 
 </div>
