@@ -10,16 +10,15 @@ const myMap = L.map("mapid", {
     zoom: 5
 });
 
-  
-// Add a tile layer
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
-    tileSize: 512,
-    maxZoom: 18,
-    zoomOffset: -1,
-    id: "mapbox/streets-v11",
-    accessToken: API_KEY
-}).addTo(myMap);
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/streets-v11",
+        accessToken: API_KEY
+    }).addTo(myMap);
+
 
 
 function statechanged(state) {
@@ -55,6 +54,16 @@ function searchParks(event){
     // tabledata.innerHTML = "";
     // tbody = tabledata.append("tbody");
     myMap.eachLayer(function (layer) {myMap.removeLayer(layer);});
+        // Add a tile layer
+    L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
+        attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
+        tileSize: 512,
+        maxZoom: 18,
+        zoomOffset: -1,
+        id: "mapbox/streets-v11",
+        accessToken: API_KEY
+    }).addTo(myMap);
+
     let tabledata = d3.select("#searchParkResults");
     tabledata.remove();
     // Find out which drop down values are selected and decide the selection criteria
@@ -116,9 +125,11 @@ function ExtractData(searchCriteria, searchParametersList){
     let divdata = d3.select("#searchparksdiv");
     const tableEnter = divdata.append('table')
       .attr('id', "searchParkResults")
-      .attr('class', 'table table-striped table-sm');
+      .attr('class', 'table table-striped table-sm table-dark');
     let tablehead = tableEnter.append("thead");
-    let headrow = tablehead.append("tr");
+    let headrow = tablehead.append("tr")
+            .attr('class', 'bg-info');
+    
     let headcell = headrow.append("th");
     headcell.html("Park Name");
     headcell = headrow.append("th");

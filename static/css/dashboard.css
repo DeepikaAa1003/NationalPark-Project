@@ -1,9 +1,11 @@
 #index_background {
   font-size: .875rem;
   background-image: url("https://images.unspalsh.com/1/type-away.jpg"); 
-   background-color: #cccccc;
+   background-color:#428a7e8a;
+  }
+#parks-sidebar {
+  background-color:#428a7e8a;
 }
-
 
 .feather {
   width: 16px;
