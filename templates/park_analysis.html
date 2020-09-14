@@ -69,7 +69,7 @@
     <div class = "col-md-12">
         <h5 class = "ml-3">Select Region:</h5>
           <select class = "DropSelection ml-3" id="selRegion" onchange="optionChangedRegion(this.value)">
-            <option value="value" selected>Select Option</option>
+            <!-- <option value="value" selected>Select Option</option> -->
               {% for region in regions_list %}
                 <option value="{{region}}">{{region}}</option>
               {% endfor %}          
@@ -111,7 +111,7 @@
         <div class = "col-md-6">
             <h5>Select Park:</h5>
               <select class = "DropSelection mb-3" id="selStates" onchange="optionChangedPark(this.value)">
-                <option value="value" selected>Select Option</option>
+                <!-- <option value="value" selected>Select Option</option> -->
                   {% for park in parks_list %}
                     <option value="{{park}}">{{park}}</option>
                   {% endfor %}          
@@ -130,7 +130,7 @@
         <div class = "col-md-6">
             <h5>Select Month:</h5>
               <select class = "DropSelection mb-3" id="selStates" onchange="optionChangedMonth(this.value)">
-                <option value="value" selected>Select Option</option>
+                <!-- <option value="value" selected>Select Option</option> -->
                   {% for month in months_list %}
                     <option value="{{month}}">{{month}}</option>
                   {% endfor %}          
