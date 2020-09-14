@@ -137,7 +137,7 @@ body {
 /* set map, body, and html to 100% of the screen size */
 #map{
   height: 300px;
-  width: 600px;
+  width: 500px;
   display:inline-block
 }
 
@@ -172,4 +172,9 @@ h1 {
 
 #parkID{
   display:none;
+}
+
+.card{
+  background-color: whitesmoke;
+  box-shadow: grey;
 }
