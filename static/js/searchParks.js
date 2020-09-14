@@ -19,7 +19,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         accessToken: API_KEY
     }).addTo(myMap);
 
-loadTop10Parks() ;
+loadTop10Parks();
 
 function statechanged(state) {
     // Fetch new data each time a new state is selected
@@ -67,6 +67,8 @@ function searchParks(event){
     // Remove existing table rows
     let tabledata = d3.select("#searchParkResults");
     tabledata.remove();
+
+    d3.select("#loadTop10").remove();
     // Find out which drop down values are selected and decide the selection criteria
     let searchCriteria;
     let searchParametersList = [];
@@ -127,6 +129,7 @@ function ExtractData(searchCriteria, searchParametersList){
 
     
     let divdata = d3.select("#searchparksdiv");
+    
     // Create a new table
     const tableEnter = divdata.append('table')
       .attr('id', "searchParkResults")
@@ -201,12 +204,12 @@ function ExtractData(searchCriteria, searchParametersList){
 }
 function loadTop10Parks() {
     //Due to shortage of time hardcoded the top 10 park names else we could have used beautiful soup to web scrap
-    
+
     let top10ParksList = ["yose", "yell", "glac", "grca", "zion", "grte", "brca", "arch", "romo", "hale" ];
     let divdata = d3.select("#searchparksdiv");
     // Create a new table
     const tableEnter = divdata.append('table')
-      .attr('id', "searchParkResults")
+      .attr('id', "loadTop10")
       .attr('class', 'table table-striped table-sm table-dark');
     // Create table headers
     let tablehead = tableEnter.append("thead");
