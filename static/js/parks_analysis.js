@@ -402,3 +402,25 @@ function optionChangedMonth(month_selected){
     month_select = month_selected;
     monthlyVisitsRegionPark();
 };
+
+//initialize dashboard with default values
+function init(){
+    d3.json("/parks/v1.0/AllRegions/").then(initRegion => {
+      console.log(initRegion[0])
+      buildmap(initRegion[0]);
+      visits2019Plot(initRegion[0]);
+      month_select = "Jan";
+      region_select = initRegion[0];
+      monthlyVisitsRegionPark()
+  });
+
+    d3.json("/parks/v1.0/AvailableVisitsParknames/").then(initPark =>{
+        console.log(initPark);
+        const inputPark = initPark[0]
+        console.log(inputPark);
+        monthlyVisits(inputPark)
+    });
+  
+  };
+  
+  init()
