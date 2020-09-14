@@ -21,7 +21,7 @@ let markers = L.layerGroup()
 
 //function that generates a map based on dropdown selected option
 function buildmap(region_name){
-    
+
     const url = `/parks/v1.0/ParksCodesByRegion/${region_name}`
     console.log(url);
     d3.select(".region").text(region_name)
@@ -138,19 +138,20 @@ function visits2019Plot(region_input){
             yaxis: {tickfont: {
                     size: 8,
                     },
+                showgrid: false,
                 title: "Visits 2019"
             },
             margin: {
                 l: 100,
                 r: 100,
-                t: 40,
-                b: 40,
+                t: 50,
+                b: 50,
             },
 
             title: `${region_input} Region`,
 
-            paper_bgcolor: 'rgba(204,204,204)',
-            plot_bgcolor: 'rgba(204,204,204)',
+            paper_bgcolor: 'rgb(0,0,0,0)',
+            plot_bgcolor: 'rgb(0,0,0,0)',
             width: 600,
             height: 300,
             showlegend: false,
@@ -228,8 +229,14 @@ function monthlyVisits(park_input){
         y: monthlyVisitsAxis,
         marker: {
             color: 'rgb(49,130,189)',
-            opacity: 0.5
+            opacity: 0.5,
+            width :4
         },
+
+        line: {
+            color: 'rgb(49,130,189)',
+            width: 3
+          },
         type: 'line'
     };
 
@@ -239,11 +246,15 @@ function monthlyVisits(park_input){
             size: 8},
 
             tickangle: -45,
-            title: "Month"
+            title: "Month",
+            showgrid : false,
+            // showline: true
         },
         yaxis: {tickfont: {
                 size: 8,
                 },
+            showgrid: false,
+            showline: true,
             title: "Visits"
         },
         margin: {
@@ -255,8 +266,8 @@ function monthlyVisits(park_input){
 
         title: `${name_park} 2019 Visits`,
 
-        paper_bgcolor: 'rgba(204,204,204)',
-        plot_bgcolor: 'rgba(204,204,204)',
+        paper_bgcolor: 'rgb(0,0,0,0)',
+        plot_bgcolor: 'rgb(0,0,0,0)',
         width: 600,
         height: 300,
         showlegend: false,
@@ -351,13 +362,14 @@ function monthlyVisitsRegionPark(){
            
             xaxis: {tickfont: {
                 size: 8},
-
                 tickangle: -45,
-                title: "Park Code"
+                title: "Park Code",
+                showgrid: false
             },
             yaxis: {tickfont: {
                     size: 8,
                     },
+                showgrid: false,
                 title: `${month_select} Visits`
             },
             margin: {
@@ -369,8 +381,8 @@ function monthlyVisitsRegionPark(){
 
             title: `${region_select} Region`,
 
-            paper_bgcolor: 'rgba(204,204,204)',
-            plot_bgcolor: 'rgba(204,204,204)',
+            paper_bgcolor: 'rgb(0,0,0,0)',
+            plot_bgcolor: 'rgb(0,0,0,0)',
             width: 600,
             height: 300,
             showlegend: false,
