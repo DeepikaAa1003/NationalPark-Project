@@ -183,7 +183,10 @@ class NPS_Mongo():
         return parks_names
 
     def fetchParkCodeByRegion(self,region_name):
-        region_name = region_name + " "
+        if region_name == "Alaska":
+            region_name = region_name
+        else:
+            region_name = region_name + " "
         parks = self.month_collection.find({
             "region": region_name})
         park_codes_list = []
