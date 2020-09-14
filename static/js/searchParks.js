@@ -1,7 +1,7 @@
 let selectedParkName = "", selectedState = "", selectedActivity = "";
 let searchParksButton = d3.select("#park");
 let searchCriteria = "";
-
+let parks = L.layerGroup();
 
 
  // Create a map object
@@ -19,7 +19,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         accessToken: API_KEY
     }).addTo(myMap);
 
-
+loadTop10Parks() ;
 
 function statechanged(state) {
     // Fetch new data each time a new state is selected
@@ -51,10 +51,10 @@ function loadParkMap(parks){
   }
 
 function searchParks(event){
-    // tabledata.innerHTML = "";
-    // tbody = tabledata.append("tbody");
+    
+    // Remove existing layers from map
     myMap.eachLayer(function (layer) {myMap.removeLayer(layer);});
-        // Add a tile layer
+    // Add a tile layer
     L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
         attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
         tileSize: 512,
@@ -64,6 +64,7 @@ function searchParks(event){
         accessToken: API_KEY
     }).addTo(myMap);
 
+    // Remove existing table rows
     let tabledata = d3.select("#searchParkResults");
     tabledata.remove();
     // Find out which drop down values are selected and decide the selection criteria
@@ -116,16 +117,21 @@ function searchParks(event){
     
     console.log(searchCriteria);
     console.log(searchParametersList);
+    //Extract data from DB based on search criteria
     ExtractData(searchCriteria, searchParametersList);
+   
     
 }
 
 function ExtractData(searchCriteria, searchParametersList){
 
+    
     let divdata = d3.select("#searchparksdiv");
+    // Create a new table
     const tableEnter = divdata.append('table')
       .attr('id', "searchParkResults")
       .attr('class', 'table table-striped table-sm table-dark');
+    // Create table headers
     let tablehead = tableEnter.append("thead");
     let headrow = tablehead.append("tr")
             .attr('class', 'bg-info');
@@ -138,9 +144,10 @@ function ExtractData(searchCriteria, searchParametersList){
     headcell.html("Park Type");
     headcell = headrow.append("th");
     headcell.html("More Info");
+    // Create a new table body
     tablebody = tableEnter.append("tbody");
-    let parks = L.layerGroup();
-    parks.clearLayers();
+    
+    
     // Prepare the URL to get the data for selected criteria and parameters from Mongo DB
     let dataUrl = `/parks/v1.0/${searchCriteria}`;
 
@@ -149,44 +156,111 @@ function ExtractData(searchCriteria, searchParametersList){
         dataUrl = `${dataUrl}/${search}`;
     });
     console.log(dataUrl);
-    let parkLat, parkLon, templocation;
+    
     d3.json(dataUrl).then((data) => {
 
-    
+    // Loop through parks data
         
         data.forEach((park) => {
-            //  parks.push([parseFloat(park.latitude),parseFloat(park.longitude)])
-            singleParkMarker = L.marker([parseFloat(park.latitude),parseFloat(park.longitude)]).addTo(myMap);
-            parks.addLayer(singleParkMarker);
-             
-            var row = tablebody.append("tr");
-                var cell = row.append("td");
-                cell.html(park["fullName"]);
-                emailList = park["contacts"]["emailAddresses"]
-                emailInfo = "";
-                emailList.forEach(email=> {
-                     emailInfo = `${emailInfo},${email['emailAddress']}`;
-                }); 
-                let emailInfo1 = emailInfo.slice(1);
-                var cell = row.append("td");
-                cell.html(emailInfo1);
-                var cell = row.append("td");
-                cell.html(park["designation"]);
-                var cell = row.append("td");
-                cell.html(`<a href="/parks/v1.0/ParkDetails/${park["parkCode"]}">More Info</a>`);
+            
+            console.log(park);
+            if(park.latitude != "" && park.longitude != ""){
+                    // Create single marker and add to map
+                    singleParkMarker = L.marker([parseFloat(park.latitude),parseFloat(park.longitude)])
+                                        .bindPopup(`<h5><strong>${park["fullName"]}, ${park["states"]}</strong><h5>`)
+                                        .addTo(myMap);
+                    parks.addLayer(singleParkMarker);
+                    
+                    // Add rows and columns ot the table and fill in the data
+                    var row = tablebody.append("tr");
+                        var cell = row.append("td");
+                        cell.html(park["fullName"]);
+                        emailList = park["contacts"]["emailAddresses"]
+                        emailInfo = "";
+                        emailList.forEach(email=> {
+                            emailInfo = `${emailInfo},${email['emailAddress']}`;
+                        }); 
+                        let emailInfo1 = emailInfo.slice(1);
+                        var cell = row.append("td");
+                        cell.html(emailInfo1);
+                        var cell = row.append("td");
+                        cell.html(park["designation"]);
+                        var cell = row.append("td");
+                        cell.html(`<a href="/parks/v1.0/ParkDetails/${park["parkCode"]}">More Info</a>`);
                 
-                
+            }
         });
         
     });
     
-    // console.log("Calling LoadMap");
-    // console.log(parks);
-    // loadParkMap(parks);
+    selectedState = "";
+    selectedActivity = "";
+    selectedParkName = "";
     
     
 }
+function loadTop10Parks() {
+    //Due to shortage of time hardcoded the top 10 park names else we could have used beautiful soup to web scrap
+    
+    let top10ParksList = ["yose", "yell", "glac", "grca", "zion", "grte", "brca", "arch", "romo", "hale" ];
+    let divdata = d3.select("#searchparksdiv");
+    // Create a new table
+    const tableEnter = divdata.append('table')
+      .attr('id', "searchParkResults")
+      .attr('class', 'table table-striped table-sm table-dark');
+    // Create table headers
+    let tablehead = tableEnter.append("thead");
+    let headrow = tablehead.append("tr")
+            .attr('class', 'bg-info');
+    
+    let headcell = headrow.append("th");
+    headcell.html("Park Name");
+    headcell = headrow.append("th");
+    headcell.html("Contact Details");
+    headcell = headrow.append("th");
+    headcell.html("Park Type");
+    headcell = headrow.append("th");
+    headcell.html("More Info");
+    // Create a new table body
+    tablebody = tableEnter.append("tbody");
+    
+    
+    top10ParksList.forEach(parkcode=> {
+        let dataUrl = `/parks/v1.0/ParkDetailsbyParkCode/`;
+        dataUrl = dataUrl + parkcode;
+        d3.json(dataUrl).then((data) => {
+            data.forEach((park) => {
+            
+                console.log(park);
+                if(park.latitude != "" && park.longitude != ""){
+                        // Create single marker and add to map
+                        singleParkMarker = L.marker([parseFloat(park.latitude),parseFloat(park.longitude)])
+                                            .bindPopup(`<h5>${park["fullName"]}, ${park["states"]}<h5>`)
+                                            .addTo(myMap);
+                        parks.addLayer(singleParkMarker);
 
+                        var row = tablebody.append("tr");
+                        var cell = row.append("td");
+                        cell.html(park["fullName"]);
+                        emailList = park["contacts"]["emailAddresses"]
+                        emailInfo = "";
+                        emailList.forEach(email=> {
+                            emailInfo = `${emailInfo},${email['emailAddress']}`;
+                        }); 
+                        let emailInfo1 = emailInfo.slice(1);
+                        var cell = row.append("td");
+                        cell.html(emailInfo1);
+                        var cell = row.append("td");
+                        cell.html(park["designation"]);
+                        var cell = row.append("td");
+                        cell.html(`<a href="/parks/v1.0/ParkDetails/${park["parkCode"]}">More Info</a>`);
+                }
+            });
+        });
+    });
+}
 
   // Use D3 `.on` to attach a click handler
   searchParksButton.on("click", searchParks);
+
+  

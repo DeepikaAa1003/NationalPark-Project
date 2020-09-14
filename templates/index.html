@@ -52,7 +52,7 @@
       <div class="sidebar-sticky ml-2 pt-5 mt-5">
         <h5>States:</h5>
           <select class = "DropSelection" id="selStates" onchange="statechanged(this.value)">
-            <option value="value" selected>Select Option</option>
+            <option value="" selected>Select Option</option>
               {% for state in states_list %}
                 <option value="{{state}}">{{state}}</option>
               {% endfor %}          
@@ -60,7 +60,7 @@
         
         <h5 class = "mt-2">Activities:</h5>
           <select class = "DropSelection" id="selActivity" onchange="activitychanged(this.value)">
-            <option value="value" selected>Select Option</option>
+            <option value="" selected>Select Option</option>
               {% for act in activities_list %}
                 <option value="{{act}}">{{act}}</option>
               {% endfor %}          
@@ -68,7 +68,7 @@
 
         <h5 class = "mt-2">Park Name:</h5>
           <select class = "DropSelection" id="selParkName" onchange="parkchanged(this.value)">
-            <option value="value" selected>Select Option</option>
+            <option value="" selected>Select Option</option>
               {% for park in parks_list %}
                 <option value="{{park}}">{{park}}</option>
               {% endfor %}          
