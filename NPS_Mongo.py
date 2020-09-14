@@ -39,6 +39,8 @@ class NPS_Mongo():
         return results
 
     def fetchParksByParkName(self,parkname):
+        if(parkname == "Haleakala National Park"):
+                parkname = "Haleakal&#257; National Park"
         parks = self.parks.find({
             "fullName":  parkname
         })
@@ -126,6 +128,8 @@ class NPS_Mongo():
         parks_names = []
         parksdata = self.parks.find({})
         for park in parksdata:
+            if(park["fullName"] == "Haleakal&#257; National Park"):
+                park["fullName"] = "Haleakala National Park"
             parks_names += [(park["fullName"])]
         parks_names.sort()
         print(parks_names)
