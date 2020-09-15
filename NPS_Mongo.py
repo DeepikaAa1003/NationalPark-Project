@@ -22,7 +22,7 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
+        
         print(results)
         return results
 
@@ -35,7 +35,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort() 
         print(results)
         return results
 
@@ -50,7 +49,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -66,7 +64,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -82,7 +79,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -97,7 +93,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -114,7 +109,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -127,7 +121,6 @@ class NPS_Mongo():
         for park in parks:
             park.pop('_id') 
             results.append(park)
-        results.sort()
         print(results)
         return results
 
@@ -169,7 +162,6 @@ class NPS_Mongo():
         month_obj = query["month"]
         for j,k in month_obj.items():
             months_list.append(j) 
-        months_list.sort()
         print(months_list)
         return months_list
 
@@ -178,7 +170,6 @@ class NPS_Mongo():
         for region in self.month_collection.find():
             regions_data += [region["region"]]
         regions_list = list(set(regions_data))
-        regions_list.sort()
         print(regions_list)
         return regions_list
     
@@ -186,7 +177,6 @@ class NPS_Mongo():
         parks_names = []
         for park in self.month_collection.find():
             parks_names += [park["park_name"]]
-        parks_names.sort()
         print(parks_names)
         return parks_names
 
@@ -201,7 +191,6 @@ class NPS_Mongo():
         for park in parks:
             print(park)
             park_codes_list.append(park["park_code"])
-        park_codes_list.sort()
         print(park_codes_list)
         return park_codes_list
 
@@ -214,7 +203,6 @@ class NPS_Mongo():
             for i in temp:
                 i.pop('_id')
                 park_by_region.append(i)
-        park_by_region.sort()
         return(park_by_region)
 
     def fetchVisits2019ByRegion(self,selected_region):
@@ -227,7 +215,6 @@ class NPS_Mongo():
         for park in park_data:
             park.pop('_id') 
             parks_visits.append(park)
-        parks_visits.sort()
         print(len(parks_visits))
         return parks_visits
 
@@ -237,7 +224,6 @@ class NPS_Mongo():
         for park in park_data:
             park.pop('_id')
             parks_monthly_visits.append(park)
-        parks_monthly_visits.sort()
         print(parks_monthly_visits)
         return parks_monthly_visits
 
@@ -251,7 +237,6 @@ class NPS_Mongo():
         for park in park_montly_data:
             park.pop('_id') 
             parks_monthly_visits.append(park)
-        parks_monthly_visits.sort()
         print(len(parks_monthly_visits))
         return parks_monthly_visits
 
