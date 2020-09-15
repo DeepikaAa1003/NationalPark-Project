@@ -163,7 +163,7 @@ function ExtractData(searchCriteria, searchParametersList){
     d3.json(dataUrl).then((data) => {
 
     // Loop through parks data
-        
+        data.sort((a, b) => (a.fullName > b.fullName) ? 1 : -1)
         data.forEach((park) => {
             
             console.log(park);
