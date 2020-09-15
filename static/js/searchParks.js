@@ -196,10 +196,7 @@ function ExtractData(searchCriteria, searchParametersList){
         
     });
     
-    selectedState = "";
-    selectedActivity = "";
-    selectedParkName = "";
-    
+   
     
 }
 function loadTop10Parks() {
