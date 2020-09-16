@@ -131,22 +131,22 @@ function visits2019Plot(region_input){
         const visitsLayout = {
            
             xaxis: {tickfont: {
-                size: 7},
+                size: 8},
                 showgrid: false,
-                title: "Park Code"
+                title: "Visits 2019"
             },
             yaxis: {tickfont: {
-                    size: 7,
+                    size: 8,
                     },
                 showgrid: false,
                 showline: false,
-                title: "Visits 2019"
+                title: "Park Name"
             },
             margin: {
                 l: 250,
                 r: 10,
-                t: 50,
-                b: 50,
+                t: 80,
+                b: 40,
             },
 
             title: `${region_input} Region`,
@@ -154,7 +154,7 @@ function visits2019Plot(region_input){
             paper_bgcolor: 'rgb(0,0,0,0)',
             plot_bgcolor: 'rgb(0,0,0,0)',
             // width: 100%,
-            height: 700,
+            height: 550,
             showlegend: false,
         };
 
@@ -362,22 +362,22 @@ function monthlyVisitsRegionPark(){
         const byMonthVisitsLayout = {
            
             xaxis: {tickfont: {
-                size: 7},
-                title: "Park Code",
+                size: 8},
+                title: `${month_select} Visits`,
                 showgrid: false
             },
             yaxis: {tickfont: {
-                    size: 7,
+                    size: 8,
                     },
                 showgrid: false,
                 showline: true,
-                title: `${month_select} Visits`
+                title: "Park Name"
             },
             margin: {
                 l: 250,
                 r: 10,
-                t: 50,
-                b: 50,
+                t: 80,
+                b: 40,
             },
 
             title: `${region_select} Region`,
@@ -385,7 +385,7 @@ function monthlyVisitsRegionPark(){
             paper_bgcolor: 'rgb(0,0,0,0)',
             plot_bgcolor: 'rgb(0,0,0,0)',
             // width: 100%,
-            height: 500,
+            height: 550,
             showlegend: false,
         };
 
