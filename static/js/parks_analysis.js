@@ -117,33 +117,34 @@ function visits2019Plot(region_input){
 
         //build plot
         const visitTrace = {
-            x:parksAxis,
-            y:visitsAxis,
+            x:visitsAxis.reverse(),
+            y:parksText.reverse(),
             marker: {
                 color: 'rgb(49,130,189)',
                 opacity: 0.5
             },
-            text: parksText,
-            type: 'bar'
+            text: parksAxis,
+            type: 'bar',
+            orientation: 'h'
         };
 
         const visitsLayout = {
            
             xaxis: {tickfont: {
-                size: 8},
-
-                tickangle: -45,
+                size: 7},
+                showgrid: false,
                 title: "Park Code"
             },
             yaxis: {tickfont: {
-                    size: 8,
+                    size: 7,
                     },
                 showgrid: false,
+                showline: false,
                 title: "Visits 2019"
             },
             margin: {
-                l: 100,
-                r: 100,
+                l: 250,
+                r: 10,
                 t: 50,
                 b: 50,
             },
@@ -244,8 +245,6 @@ function monthlyVisits(park_input){
        
         xaxis: {tickfont: {
             size: 8},
-
-            tickangle: -45,
             title: "Month",
             showgrid : false,
             // showline: true
@@ -268,8 +267,8 @@ function monthlyVisits(park_input){
 
         paper_bgcolor: 'rgb(0,0,0,0)',
         plot_bgcolor: 'rgb(0,0,0,0)',
-        width: 600,
-        height: 300,
+        width: 1200,
+        height: 500,
         showlegend: false,
     };
 
@@ -333,6 +332,7 @@ function monthlyVisitsRegionPark(){
 
         const byMonthSliceVisitsArr = sortedByMonthVisitsArr.slice(0,20);
         const byMonthParkNameSliceVisit = byMonthParkNameSortVisitsArr.slice(0,20);
+        console.log(byMonthParkNameSliceVisit);
 
         console.log(byMonthSliceVisitsArr);
         console.log(byMonthParkNameSliceVisit);
@@ -348,35 +348,36 @@ function monthlyVisitsRegionPark(){
 
         //build plot
         const byMonthVisitTrace = {
-            x:byMonthParksAxis,
-            y:byMonthVisitsAxis,
+            x:byMonthVisitsAxis.reverse(),
+            y:parksTextArr.reverse(),
             marker: {
                 color: 'rgb(49,130,189)',
                 opacity: 0.5
             },
-            text: parksTextArr,
-            type: 'bar'
+            text: byMonthParksAxis,
+            type: 'bar',
+            orientation: 'h'
         };
 
         const byMonthVisitsLayout = {
            
             xaxis: {tickfont: {
-                size: 8},
-                tickangle: -45,
+                size: 7},
                 title: "Park Code",
                 showgrid: false
             },
             yaxis: {tickfont: {
-                    size: 8,
+                    size: 7,
                     },
                 showgrid: false,
+                showline: true,
                 title: `${month_select} Visits`
             },
             margin: {
-                l: 100,
-                r: 100,
-                t: 40,
-                b: 40,
+                l: 250,
+                r: 10,
+                t: 50,
+                b: 50,
             },
 
             title: `${region_select} Region`,

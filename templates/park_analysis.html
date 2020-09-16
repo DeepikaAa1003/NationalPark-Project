@@ -62,91 +62,83 @@
     </div>
   </div>
   
-  
 
-  
-<div class = "row">
-    <div class = "col-md-12">
-        <h5 class = "ml-3">Select Region:</h5>
-          <select class = "DropSelection ml-3" id="selRegion" onchange="optionChangedRegion(this.value)">
-            <!-- <option value="value" selected>Select Option</option> -->
-              {% for region in regions_list %}
-                <option value="{{region}}">{{region}}</option>
-              {% endfor %}          
-          </select><br>
+<div class="container-fluid">
+  <div class="col-4 p-2">
+    <label for="parks">
+      <h3>Select Region:</h3>
+    </label>
+    <select class = "DropSelection ml-3" id="selRegion" onchange="optionChangedRegion(this.value)">
+      {% for region in regions_list %}
+        <option value="{{region}}">{{region}}</option>
+      {% endfor %}
+    </select>
+  </div>
+</div>
+
+<!-- region map -->
+<div class="container-fluid">
+  <div class="row mt-3">
+    <div class="map-box mr-4 ml-4 mb-4">
+      <h4 class="text-center mt-3 mb-3">Park Location By Region</h4>
+      <div id="map"></div>
     </div>
+  </div>
+</div>
+<!-- below the region map, displays the linked maps -->
+ 
+<div class="container-fluid">
+  <div class="row ml-2 mr-2 mt-5 mb-5">
+    <div class="container-fluid">
+      <div class="col-4">
+        <label for="cars">
+          <h3>Select Month:</h3>
+        </label>
+        <select class = "DropSelection mb-3" id="selMonth" onchange="optionChangedMonth(this.value)">
+          {% for month in months_list %}
+            <option value="{{month}}">{{month}}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-6 mb-4">
+      <div class="chart-box">
+        <h4 class="text-center mt-5">Monthly visits in a Region by Month</h4>
+        <div id="chart3"></div>
+      </div>
+    </div>
+    <div class="col-xs-6 col-md-6">
+      <div class="chart-box">
+        <h4 class="text-center mt-5">Number of Visits per Park-Region 2019</h4>
+        <div id="chart1"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- monthly visits map -->
+<div class="container-fluid">
+  <div class="col-4 p-2">
+    <label for="parks">
+      <h4>Select Park:</h4>
+    </label>
+    <select class = "DropSelection mb-3" id="selpark" onchange="optionChangedPark(this.value)">
+      {% for park in parks_list %}
+        <option value="{{park}}">{{park}}</option>
+      {% endfor %}
+    </select>
+  </div>
 </div>
 
 <div class="container-fluid">
-  <div class="row">
-    <main role="main" class="col-md-12 px-md-4">
-    
-    <div class = "row mb-3">
-        <div class = "col-md-12"></div>
+  <div class="row mt-3">
+    <div class="map-box mr-4 ml-4 mb-4">
+      <h4 class="text-center  mt-3 mb-3">Monthly visits by Park</h4>
+      <div id="chart2"></div>
     </div>
-    <div class="row mb-2">
-      
-        <div class="col-md-6">
-          <div class="row no-gutters border rounded overflow-hidden border flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-            <div class="col p-4 d-flex flex-column card position-static map">
-              <h5 class="mb-0 text-center">Park Location by Region</h5>
-              <p class="mb-0 text-center region"></p>
-              <div id="map"></div>
-            </div> 
-          </div>
-            
-        </div>
-        <div class="col-md-6">
-            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-              <div class="col p-4 d-flex flex-column card position-static">
-                <h5 class="mb-2 text-center">Number of Visits per Park-Region 2019</h5>
-                <div id="chart1"></div>
-              </div>
-            </div>
-      </div>
-      </div>
-
-      <div class = "row">
-        <div class = "col-md-6">
-            <h5>Select Park:</h5>
-              <select class = "DropSelection mb-3" id="selStates" onchange="optionChangedPark(this.value)">
-                <!-- <option value="value" selected>Select Option</option> -->
-                  {% for park in parks_list %}
-                    <option value="{{park}}">{{park}}</option>
-                  {% endfor %}          
-              </select><br>
-          
-              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column card position-static">
-                  <h5 class="mb-2 text-center">Monthly visits per park</h5>
-                  <div id="chart2"></div>
-                 
-                </div>
-        
-              </div>
-        </div>
-
-        <div class = "col-md-6">
-            <h5>Select Month:</h5>
-              <select class = "DropSelection mb-3" id="selStates" onchange="optionChangedMonth(this.value)">
-                <!-- <option value="value" selected>Select Option</option> -->
-                  {% for month in months_list %}
-                    <option value="{{month}}">{{month}}</option>
-                  {% endfor %}          
-              </select><br>
-              <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column card position-static">
-                  <h5 class="mb-2 text-center">For each park in a region by month</h5>
-                  <div id="chart3"></div>
-                </div>
-        
-              </div>
-        </div>
-      
-    </main>
-    
+  </div>
 </div>
+
 
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
