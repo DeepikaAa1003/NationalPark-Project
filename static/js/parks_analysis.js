@@ -153,8 +153,8 @@ function visits2019Plot(region_input){
 
             paper_bgcolor: 'rgb(0,0,0,0)',
             plot_bgcolor: 'rgb(0,0,0,0)',
-            width: 600,
-            height: 300,
+            // width: 100%,
+            height: 700,
             showlegend: false,
         };
 
@@ -267,8 +267,8 @@ function monthlyVisits(park_input){
 
         paper_bgcolor: 'rgb(0,0,0,0)',
         plot_bgcolor: 'rgb(0,0,0,0)',
-        width: 1200,
-        height: 500,
+        // width: 1200,
+        height: 700,
         showlegend: false,
     };
 
@@ -384,8 +384,8 @@ function monthlyVisitsRegionPark(){
 
             paper_bgcolor: 'rgb(0,0,0,0)',
             plot_bgcolor: 'rgb(0,0,0,0)',
-            width: 600,
-            height: 300,
+            // width: 100%,
+            height: 500,
             showlegend: false,
         };
 
