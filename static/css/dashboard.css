@@ -164,7 +164,9 @@ h1 {
   text-align: center;
 }
 
-#mapid { height: 600px; }
+#mapid { 
+  
+  height: 600px; }
 
 .picSlide{
   height:100%;
