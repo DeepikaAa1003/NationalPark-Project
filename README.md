@@ -35,9 +35,5 @@ Leaflet and Plotly together with JS were used to build maps, bar charts, and lin
 
 * You can use our web application through this link [National Parks Heroku](https://nationalparksdashboard.herokuapp.com/)
 * You can also clone this repository in your local machine and run our application; but please keep in mind the following recommendations:
-  - Be sure to have Pymongo installed.
-  - Create a Local Mongo Database or a Cloud Mongo Altlas DB. You can populate this database....
-  - Create a config.py file to store the DB connection as follow: connect_string = "mongodb+srv://DBUser:PASSWORD@cluster0.za3mz.mongodb.net/?retryWrites=true&w=majority". This will ensure the flask-DB channel.
-  - For Leaflet you will need to generate a public token [MapBox](https://account.mapbox.com/access-tokens/) and store it within a config.js file inside the static/js folder.
-* You can deploy this app to Heroku; or you can run it from localhost.
-
+  - Be sure to have Pymongo and Flask installed.
+  - Use our config.py and config.py to connect to Atlas database and to access MapBox.
