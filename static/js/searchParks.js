@@ -234,7 +234,7 @@ function loadTop10Parks() {
                 console.log(park);
                 if(park.latitude != "" && park.longitude != ""){
                         // Create single marker and add to map
-                        // <h5>${park["fullName"]}, ${park["states"]}<h5></h5>
+                        
                         singleParkMarker = L.marker([parseFloat(park.latitude),parseFloat(park.longitude)])
                                             .bindPopup(`<a href="/parks/v1.0/ParkDetails/${park["parkCode"]}">${park["fullName"]}</a>`)
                                             .addTo(myMap);

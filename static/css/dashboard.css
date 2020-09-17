@@ -1,6 +1,6 @@
 .index_background {
   font-size: .875rem;
-  /* background-image: url("https://images.unspalsh.com/1/type-away.jpg");  */
+  
    background-color:#eaece5;
   }
 .parks-sidebar {
@@ -149,10 +149,7 @@ body {
 
 #chart2{
   height: 100%;
-  /* width: 100%;
-  margin-left: 4%;
-  margin-right: 6%;
-  display:inline-block */
+  
 }
 
 #chart3{
