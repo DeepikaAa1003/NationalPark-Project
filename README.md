@@ -20,16 +20,16 @@ This a "FullStack" application based on three main layers:
 
 ## Front End
 
-Used Tools : JavaScript, HTML/CSS, Bootstrap, D3, Leaflet Plotly.
+##### Used Tools : JavaScript, HTML/CSS, Bootstrap, D3, Leaflet Plotly.
 
 Three views were generated leveraging the combination of the previous tools. HTML/CSS plus Bootstrap were the techniques used to build the structure/skeleton of each page.
 With JavScript and D3 selection methods we were able to call data from our API enpoints, and to populate all dropdown lists, the "Main Parks Table, Images, Park Details & Info, etc.:
 
-![NationalParks](Images/FirstView.JPG)
+![NationalParks](Images/FirstView.PNG)
 
 Leaflet and Plotly together with JS were used to build maps, bar charts, and line charts:
 
-![NationalParks](Images/ThirdView.JPG)
+![NationalParks](Images/ThirdView.PNG)
 
 3. How to run/use this application?
 
