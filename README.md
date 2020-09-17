@@ -35,19 +35,19 @@ MONGO DB is deployed in Atlas cloud server. The cloud server is aws located in v
       - Search parks by state and parkname ==> /parks/v1.0/SearchParksByStAndPark/<state>/<parkname>
       - Search parks by activity and park name ==> /parks/v1.0/SearchParksByActAndPark/<activity>/<parkname>
       - Search parks by state and parkname ==> /parks/v1.0/SearchParksByActStateAndPark/<activity>/<state>/<parkname>
-      - Search parks by parknames ==> /parksNames
-/states
-/activities
-/parks/v1.0/ParkDetails/<parkcode>
-/parks/v1.0/ParkDetailsbyParkCode/<parkcode>
-/parks/v1.0/AvailableVisitsParknames/
-/parks/v1.0/ParkAnalysis/
-/parks/v1.0/ParksCodesByRegion/<region>
-/parks/v1.0/AllRegions/
-/parks/v1.0/Visits2019ByRegion/<region_name>
-/parks/v1.0/MonthlyVisitsByPark/<park_name>
-/parks/v1.0/MonthlyVisitsByRegion/<input_region>
-  - 
+      - Retrieve all unique park names ==> /parksNames
+      - Retrieve all states ==> /states
+      - Retrieve all activities ==> /activities
+      - Render Park Details Page using park code value ==> /parks/v1.0/ParkDetails/<parkcode>
+      - Search parks by park code ==> /parks/v1.0/ParkDetailsbyParkCode/<parkcode>
+      - Search park visits by park names ==> /parks/v1.0/AvailableVisitsParknames/
+      - Render park analysis dashboard  ==> /parks/v1.0/ParkAnalysis/
+      - Search parks by region ==> /parks/v1.0/ParksCodesByRegion/<region>
+      - Search all unique regions ==> /parks/v1.0/AllRegions/
+      - Search 2019 vists of all parks by region selected ==> /parks/v1.0/Visits2019ByRegion/<region_name>
+      - Search monthly visits of park name selected ==>/parks/v1.0/MonthlyVisitsByPark/<park_name>
+      - Search monthly visits for all parks of a region selected ==> /parks/v1.0/MonthlyVisitsByRegion/<input_region>
+  
 
 ## Front End
 5. Front end of the application is built using following tools
