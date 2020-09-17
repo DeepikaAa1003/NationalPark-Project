@@ -67,7 +67,7 @@ Leaflet and Plotly together with JS were used to build maps, bar charts, and lin
 
 ![NationalParks](Images/ThirdView.PNG)
 
-3. How to run/use this application?
+6. How to run/use this application?
 
 * You can use our web application through this link [National Parks Heroku](https://nationalparksdashboard.herokuapp.com/)
 * You can also clone this repository in your local machine and run our application; but please keep in mind the following recommendations:
